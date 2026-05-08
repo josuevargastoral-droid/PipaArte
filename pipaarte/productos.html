@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Productos | PipaArte</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container navbar">
+      <a class="brand" href="index.html" aria-label="PipaArte">
+        <span class="logo"><img class="logo-img" alt="PipaArte" src="https://scontent.fuio1-1.fna.fbcdn.net/v/t39.30808-6/695254894_1472687257886402_1970137082104735607_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=13d280&_nc_ohc=dxL4_sPEx20Q7kNvwEgf3iN&_nc_oc=Adq3iXb9PxGl9X9UgrLMIR2rUqQAT6lQEtR133fYa7GDLMfV8OjbFaDv_bI3CL2lpB09-7KSYAIOOPckRP3tjdCJ&_nc_zt=23&_nc_ht=scontent.fuio1-1.fna&_nc_gid=ieZm4EWpQuHqbJE7wG74xw&_nc_ss=7b2a8&oh=00_Af5LFtzNKV7_CsTn2AZHB9qVZQLHqt46KIK4CU0V3ygy8w&oe=6A037F95" /></span>
+        <span>PipaArte</span>
+      </a>
+
+
+      <nav class="nav-links" aria-label="Navegación principal">
+        <a class="btn" href="index.html">Inicio</a>
+        <a class="btn btn-primary" href="productos.html">Productos</a>
+        <a class="btn" href="nosotros.html">Sobre Nosotros</a>
+        <a class="btn" href="contacto.html">Contacto</a>
+        <a class="btn" href="login.html">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container section">
+    <h2 class="page-title">Productos</h2>
+    <p style="margin-top:0; color:var(--muted);">Agrega al carrito tus flores y figuras favoritas.</p>
+
+    <section id="products" class="grid grid-3" aria-label="Lista de productos" style="margin-top:16px;"></section>
+  </main>
+
+  <!-- Carrito -->
+  <aside id="cartDrawer" class="cart-drawer" hidden aria-label="Carrito">
+    <div class="cart-header">
+      <div style="font-weight:900; display:flex; align-items:center; gap:10px;">
+        <span class="icon-badge" aria-hidden="true">🛒</span>
+        Tu carrito
+      </div>
+      <button id="closeCartBtn" class="btn" type="button">Cerrar</button>
+    </div>
+
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer">
+      <div class="total-line">
+        <span>Total</span>
+        <span id="cartTotal">$0.00</span>
+      </div>
+      <div style="display:flex; gap:10px;">
+        <button id="clearCartBtn" class="btn btn-danger" type="button" style="flex:1;">Vaciar</button>
+        <button id="checkoutBtn" class="btn btn-primary" type="button" style="flex:1;">Finalizar</button>
+      </div>
+      <div style="margin-top:10px; color:var(--muted); font-size:13px; line-height:1.5;">
+        Los precios son de ejemplo. El carrito guarda tu selección en LocalStorage.
+      </div>
+    </div>
+  </aside>
+
+  <div style="position:fixed; right:16px; bottom:16px; z-index:200;">
+    <button id="openCartBtn" class="btn btn-primary" type="button" aria-label="Abrir carrito">
+      <span aria-hidden="true">🛒</span>
+      <span>Carrito</span>
+      <span id="cartCount" class="icon-badge" style="margin-left:8px;">0</span>
+    </button>
+  </div>
+
+  <footer class="footer">
+    <div class="container" style="display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+      <div><b>PipaArte</b> © <span id="year"></span></div>
+      <div>Flores y figuras con limpiapipas • Hecho con cariño</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

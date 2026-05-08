@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sobre Nosotros | PipaArte</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container navbar">
+      <a class="brand" href="index.html" aria-label="PipaArte">
+        <span class="logo"><img class="logo-img" alt="PipaArte" src="https://scontent.fuio1-1.fna.fbcdn.net/v/t39.30808-6/695254894_1472687257886402_1970137082104735607_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=13d280&_nc_ohc=dxL4_sPEx20Q7kNvwEgf3iN&_nc_oc=Adq3iXb9PxGl9X9UgrLMIR2rUqQAT6lQEtR133fYa7GDLMfV8OjbFaDv_bI3CL2lpB09-7KSYAIOOPckRP3tjdCJ&_nc_zt=23&_nc_ht=scontent.fuio1-1.fna&_nc_gid=ieZm4EWpQuHqbJE7wG74xw&_nc_ss=7b2a8&oh=00_Af5LFtzNKV7_CsTn2AZHB9qVZQLHqt46KIK4CU0V3ygy8w&oe=6A037F95" /></span>
+        <span>PipaArte</span>
+      </a>
+
+
+      <nav class="nav-links" aria-label="Navegación principal">
+        <a class="btn" href="index.html">Inicio</a>
+        <a class="btn" href="productos.html">Productos</a>
+        <a class="btn btn-primary" href="nosotros.html">Sobre Nosotros</a>
+        <a class="btn" href="contacto.html">Contacto</a>
+        <a class="btn" href="login.html">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container section">
+    <h2 class="page-title">Sobre Nosotros</h2>
+    <div class="grid" style="grid-template-columns: 1.2fr .8fr; align-items:start;">
+      <div class="card">
+        <div class="card-body">
+          <h3 style="margin:0 0 8px;">El arte de transformar limpiapipas</h3>
+          <p class="desc" style="margin-top:0;">
+            En PipaArte creamos flores y figuras creativas hechas a base de limpiapipas.
+            Diseños coloridos, detalles cuidados y una experiencia de compra pensada para ser
+            rápida, moderna y divertida.
+          </p>
+          <p class="desc">
+            Esta tienda es una demostración funcional: el carrito y los usuarios se guardan en
+            LocalStorage y la sesión se mantiene al recargar la página.
+          </p>
+          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn btn-primary" href="productos.html">Explorar productos</a>
+            <a class="btn" href="contacto.html">Contactar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="position:sticky; top:90px;">
+        <div class="card-body">
+          <h3 style="margin:0 0 10px;">Lo que buscamos</h3>
+          <ul style="margin:0; padding-left:18px; color:var(--muted); line-height:1.8;">
+            <li>Creatividad y originalidad</li>
+            <li>Diseños modernos y amigables</li>
+            <li>Experiencia responsive</li>
+            <li>Carrito y login funcionales</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container" style="display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+      <div><b>PipaArte</b> © <span id="year"></span></div>
+      <div>Flores y figuras con limpiapipas • Hecho con cariño</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

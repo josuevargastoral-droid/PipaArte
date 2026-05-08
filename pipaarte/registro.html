@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Registro | PipaArte</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container navbar">
+      <a class="brand" href="index.html" aria-label="PipaArte">
+        <span class="logo"><img class="logo-img" alt="PipaArte" src="https://scontent.fuio1-1.fna.fbcdn.net/v/t39.30808-6/695254894_1472687257886402_1970137082104735607_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=13d280&_nc_ohc=dxL4_sPEx20Q7kNvwEgf3iN&_nc_oc=Adq3iXb9PxGl9X9UgrLMIR2rUqQAT6lQEtR133fYa7GDLMfV8OjbFaDv_bI3CL2lpB09-7KSYAIOOPckRP3tjdCJ&_nc_zt=23&_nc_ht=scontent.fuio1-1.fna&_nc_gid=ieZm4EWpQuHqbJE7wG74xw&_nc_ss=7b2a8&oh=00_Af5LFtzNKV7_CsTn2AZHB9qVZQLHqt46KIK4CU0V3ygy8w&oe=6A037F95" /></span>
+        <span>PipaArte</span>
+      </a>
+
+
+      <nav class="nav-links" aria-label="Navegación principal">
+        <a class="btn" href="index.html">Inicio</a>
+        <a class="btn" href="productos.html">Productos</a>
+        <a class="btn" href="nosotros.html">Sobre Nosotros</a>
+        <a class="btn" href="contacto.html">Contacto</a>
+        <a class="btn btn-primary" href="registro.html">Registro</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container section">
+    <div class="grid" style="grid-template-columns: 1fr 1fr; align-items:start;">
+      <section class="card">
+        <div class="card-body">
+          <h2 class="page-title" style="margin-bottom:4px;">Crear cuenta</h2>
+          <p class="desc" style="margin-top:0;">Los usuarios se guardan en LocalStorage.</p>
+
+          <form id="registerForm" class="form-wrap" autocomplete="off">
+            <div class="field">
+              <label for="regName">Nombre</label>
+              <input id="regName" name="name" placeholder="Tu nombre" required />
+            </div>
+
+            <div class="field">
+              <label for="regEmail">Email</label>
+              <input id="regEmail" name="email" type="email" placeholder="tucorreo@email.com" required />
+            </div>
+
+            <div class="field">
+              <label for="regPassword">Contraseña</label>
+              <input id="regPassword" name="password" type="password" placeholder="Crea una contraseña" required />
+            </div>
+
+            <div class="field">
+              <label for="regConfirm">Confirmar contraseña</label>
+              <input id="regConfirm" name="confirm" type="password" placeholder="Repite la contraseña" required />
+            </div>
+
+            <button class="btn btn-primary" type="submit" style="width:100%; justify-content:center;">Registrarme</button>
+          </form>
+
+          <div style="margin-top:12px; color:var(--muted); font-size:14px;">
+            ¿Ya tienes cuenta? <a href="login.html" style="font-weight:900; color:var(--primary);">Inicia sesión</a>
+          </div>
+        </div>
+      </section>
+
+      <aside class="card">
+        <div class="card-body">
+          <h3 style="margin:0 0 10px;">Tip</h3>
+          <p class="desc" style="margin-top:0;">
+            Puedes usar la misma cuenta al recargar la página. La sesión se conserva.
+          </p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn" href="login.html">Ir a login</a>
+            <a class="btn btn-accent" href="productos.html">Ver productos</a>
+          </div>
+
+          <div style="margin-top:16px;">
+            <div style="font-weight:900; margin-bottom:8px;">Usuarios en tu navegador</div>
+            <div id="usersCount" class="desc" style="min-height:44px; padding:10px; border:1px dashed rgba(17,24,39,.12); border-radius:12px;">Cargando...</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container" style="display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+      <div><b>PipaArte</b> © <span id="year"></span></div>
+      <div>Flores y figuras con limpiapipas • Hecho con cariño</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

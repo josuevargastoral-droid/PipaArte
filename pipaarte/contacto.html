@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contacto | PipaArte</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container navbar">
+      <a class="brand" href="index.html" aria-label="PipaArte">
+        <span class="logo"><img class="logo-img" alt="PipaArte" src="https://scontent.fuio1-1.fna.fbcdn.net/v/t39.30808-6/695254894_1472687257886402_1970137082104735607_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=13d280&_nc_ohc=dxL4_sPEx20Q7kNvwEgf3iN&_nc_oc=Adq3iXb9PxGl9X9UgrLMIR2rUqQAT6lQEtR133fYa7GDLMfV8OjbFaDv_bI3CL2lpB09-7KSYAIOOPckRP3tjdCJ&_nc_zt=23&_nc_ht=scontent.fuio1-1.fna&_nc_gid=ieZm4EWpQuHqbJE7wG74xw&_nc_ss=7b2a8&oh=00_Af5LFtzNKV7_CsTn2AZHB9qVZQLHqt46KIK4CU0V3ygy8w&oe=6A037F95" /></span>
+        <span>PipaArte</span>
+      </a>
+
+
+      <nav class="nav-links" aria-label="Navegación principal">
+        <a class="btn" href="index.html">Inicio</a>
+        <a class="btn" href="productos.html">Productos</a>
+        <a class="btn" href="nosotros.html">Sobre Nosotros</a>
+        <a class="btn btn-primary" href="contacto.html">Contacto</a>
+        <a class="btn" href="login.html">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container section">
+    <h2 class="page-title">Contacto</h2>
+
+    <div class="grid" style="grid-template-columns: 1fr 1fr; align-items:start;">
+      <div class="card">
+        <div class="card-body">
+          <h3 style="margin:0 0 8px;">Escríbenos</h3>
+          <p class="desc" style="margin-top:0;">Formulario de ejemplo (no envía correos, solo muestra un mensaje).</p>
+
+          <form id="contactForm" class="form-wrap" autocomplete="off">
+            <div class="field">
+              <label for="name">Nombre</label>
+              <input id="name" name="name" placeholder="Tu nombre" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="tucorreo@email.com" required />
+            </div>
+            <div class="field">
+              <label for="message">Mensaje</label>
+              <input id="message" name="message" placeholder="¿En qué podemos ayudarte?" required />
+            </div>
+            <button class="btn btn-primary" type="submit">Enviar</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="card" style="overflow:hidden; position:relative;">
+        <div class="card-body">
+          <h3 style="margin:0 0 10px;">Datos</h3>
+          <div class="desc" style="margin:0;">
+            <div><b>Dirección:</b> Ciudadela "LA VICTORIA"</div>
+            <div><b>WhatsApp:</b> +593 988059137 </div>
+            <div><b>Email:</b> josuevargas.toral29@gmail.com </div>
+          </div>
+          <div style="margin-top:14px; color:var(--muted); line-height:1.6;">
+            Para pedidos personalizados, deja tu mensaje y te contactaremos.
+          </div>
+          <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn" href="productos.html">Ver catálogo</a>
+            <a class="btn btn-accent" href="registro.html">Registrarte</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container" style="display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+      <div><b>PipaArte</b> © <span id="year"></span></div>
+      <div>Flores y figuras con limpiapipas • Hecho con cariño</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
