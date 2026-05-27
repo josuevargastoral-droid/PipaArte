@@ -1,8 +1,16 @@
-# TODO - Ajustes Landing (index)
+# TODO - Notificaciones por correo
 
-- [x] Reducir ancho máximo del contenedor para que el fondo no se vea tan ancho.
-- [x] Asegurar que el bloque de texto (hero-card) quede por encima del banner (z-index).
-- [x] Hacer que el contenedor de imagen (banner-img) tenga position: relative para que el img absoluto no se desborde.
-- [ ] Verificar responsive (≤900px) no rompa el layout.
-
+- [x] 1) Crear backend Node/Express con endpoints:
+  - [x] POST /api/contact
+  - [x] POST /api/order
+- [x] 2) Integrar envío de correo usando Resend (API key por variables de entorno)
+- [x] 3) Crear `package.json` y `package-lock.json`
+- [x] 4) Crear `server.js`
+- [x] 5) Crear `.env.example`
+- [x] 6) Modificar `script.js`:
+  - [x] Contacto: hacer fetch a /api/contact
+  - [x] Finalizar: hacer fetch a /api/order con carrito/total
+- [ ] 7) Verificar en local:
+  - [ ] Abrir `contacto.html`, enviar formulario y verificar correo
+  - [ ] Abrir `productos.html`, agregar al carrito, finalizar y verificar correo
 
