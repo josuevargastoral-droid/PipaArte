@@ -1,12 +1,194 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
+const mongoose = require('mongoose');
 
 const app = express();
 app.use(cors());
 app.use(express.json({ limit: '1mb' }));
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
+
+console.log(`[server] PORT configurado: ${PORT}`);
+
+
+// =====================
+// MongoDB Atlas (Mongoose)
+// =====================
+const MONGODB_URI = process.env.MONGODB_URI;
+
+if (!MONGODB_URI) {
+  console.error('[mongo] Falta MONGODB_URI en .env. Configura la variable y reinicia el servidor.');
+} else {
+  mongoose
+    .connect(MONGODB_URI, { dbName: process.env.MONGODB_DBNAME || undefined })
+    .then(() => console.log('[mongo] Conectado correctamente a MongoDB Atlas'))
+    .catch((err) => console.error('[mongo] Error conectando a MongoDB Atlas:', err));
+}
+
+
+// =====================
+// Modelo Producto
+// =====================
+const productoSchema = new mongoose.Schema(
+  {
+    nombre: { type: String, required: true, trim: true },
+    descripcion: { type: String, required: true, trim: true },
+    precio: { type: Number, required: true, min: 0 },
+    imagen: { type: String, required: true, trim: true },
+  },
+  { timestamps: true }
+);
+
+const Producto = mongoose.model('Producto', productoSchema);
+
+// =====================
+// Helpers
+// =====================
+function isValidObjectId(id) {
+  return mongoose.Types.ObjectId.isValid(id);
+}
+
+function safeTrim(s) {
+  return typeof s === 'string' ? s.trim() : '';
+}
+
+function isValidImagenUrl(url) {
+  if (!url) return false;
+  try {
+    const u = new URL(url);
+    return u.protocol === 'http:' || u.protocol === 'https:';
+  } catch {
+    return false;
+  }
+}
+
+function toPayload(body) {
+  const nombre = safeTrim(body?.nombre);
+  const descripcion = safeTrim(body?.descripcion);
+  const precio = typeof body?.precio === 'number' ? body.precio : Number(body?.precio);
+  const imagen = safeTrim(body?.imagen);
+  return { nombre, descripcion, precio, imagen };
+}
+
+function validateProducto(body) {
+  const { nombre, descripcion, precio, imagen } = toPayload(body);
+  const errors = [];
+
+  if (!nombre) errors.push('Campo "nombre" es requerido.');
+  if (!descripcion) errors.push('Campo "descripcion" es requerido.');
+  if (!Number.isFinite(precio)) errors.push('Campo "precio" debe ser numérico.');
+  else if (precio < 0) errors.push('Campo "precio" no puede ser negativo.');
+
+  if (!imagen) errors.push('Campo "imagen" es requerido.');
+  else if (!isValidImagenUrl(imagen)) errors.push('Campo "imagen" debe ser una URL http(s).');
+
+  return { errors, producto: { nombre, descripcion, precio, imagen } };
+}
+
+// =====================
+// CRUD /productos
+// =====================
+
+// GET /productos → obtener todos los registros.
+app.get('/productos', async (req, res) => {
+  try {
+    const productos = await Producto.find({}).sort({ createdAt: -1 });
+    return res.status(200).json({ ok: true, productos });
+  } catch (err) {
+    return res.status(500).json({ ok: false, error: err.message || 'Error interno' });
+  }
+});
+
+// GET /productos/:id → obtener un registro específico.
+app.get('/productos/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({ ok: false, error: 'ID inválido' });
+    }
+
+    const producto = await Producto.findById(id);
+    if (!producto) {
+      return res.status(404).json({ ok: false, error: 'Producto no encontrado' });
+    }
+
+    return res.status(200).json({ ok: true, producto });
+  } catch (err) {
+    return res.status(500).json({ ok: false, error: err.message || 'Error interno' });
+  }
+});
+
+// POST /productos → crear un nuevo registro.
+app.post('/productos', async (req, res) => {
+  try {
+    const { errors, producto } = validateProducto(req.body);
+    if (errors.length) {
+      return res.status(400).json({ ok: false, error: errors.join(' ') });
+    }
+
+    const created = await Producto.create(producto);
+    return res.status(201).json({ ok: true, producto: created });
+  } catch (err) {
+    return res.status(500).json({ ok: false, error: err.message || 'Error interno' });
+  }
+});
+
+// PUT /productos/:id → actualizar un registro existente.
+app.put('/productos/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({ ok: false, error: 'ID inválido' });
+    }
+
+    const { errors, producto } = validateProducto(req.body);
+    if (errors.length) {
+      return res.status(400).json({ ok: false, error: errors.join(' ') });
+    }
+
+    const actual = await Producto.findById(id);
+    if (!actual) {
+      return res.status(404).json({ ok: false, error: 'Producto no encontrado' });
+    }
+
+    actual.nombre = producto.nombre;
+    actual.descripcion = producto.descripcion;
+    actual.precio = producto.precio;
+    actual.imagen = producto.imagen;
+
+    await actual.save();
+    return res.status(200).json({ ok: true, producto: actual });
+  } catch (err) {
+    return res.status(500).json({ ok: false, error: err.message || 'Error interno' });
+  }
+});
+
+// DELETE /productos/:id → eliminar un registro.
+app.delete('/productos/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({ ok: false, error: 'ID inválido' });
+    }
+
+    const deleted = await Producto.findByIdAndDelete(id);
+    if (!deleted) {
+      return res.status(404).json({ ok: false, error: 'Producto no encontrado' });
+    }
+
+    return res.status(200).json({ ok: true, message: 'Producto eliminado correctamente' });
+  } catch (err) {
+    return res.status(500).json({ ok: false, error: err.message || 'Error interno' });
+  }
+});
+
+// =====================
+// Rutas existentes (correo): /notificar-compra, /api/contact, /api/order
+// =====================
 
 const NOTIFY_TO = process.env.NOTIFY_TO || 'josuevargas.toral29@gmail.com';
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
@@ -16,11 +198,9 @@ async function sendEmailWithResend({ subject, html, text }) {
     throw new Error('Falta RESEND_API_KEY en .env (o variables de entorno).');
   }
 
-  // Resend SDK (se carga dinámicamente para que el error sea claro si falta dependencias)
   const { Resend } = require('resend');
   const resend = new Resend(RESEND_API_KEY);
 
-  // from permitido por Resend
   const from = 'PipaArte <onboarding@resend.dev>';
 
   return resend.emails.send({
@@ -28,13 +208,14 @@ async function sendEmailWithResend({ subject, html, text }) {
     to: [NOTIFY_TO],
     subject,
     html,
-    text
+    text,
   });
 }
 
 function safeString(s) {
   return typeof s === 'string' ? s.trim() : '';
 }
+
 // Ruta para enviar notificación de compra
 app.post('/notificar-compra', async (req, res) => {
   try {
@@ -47,7 +228,7 @@ app.post('/notificar-compra', async (req, res) => {
       <p>Tu pedido ha sido recibido correctamente y pronto será procesado.</p>
     `;
 
-const resp = await sendEmailWithResend({ subject, html });
+    const resp = await sendEmailWithResend({ subject, html });
     console.log('[email] /notificar-compra OK:', resp);
     res.status(200).send('Correo de notificación enviado correctamente');
   } catch (error) {
@@ -55,10 +236,6 @@ const resp = await sendEmailWithResend({ subject, html });
     res.status(500).send('Error al enviar la notificación');
   }
 });
-console.log(app._router.stack.map(r => r.route && r.route.path).filter(Boolean));
-
-// Iniciar servidor
-app.listen(PORT, () => console.log(`Servidor activo en puerto ${PORT}`));
 
 function formatCart(cart) {
   if (!Array.isArray(cart) || cart.length === 0) return 'Carrito vacío';
@@ -140,11 +317,12 @@ app.post('/api/order', async (req, res) => {
   }
 });
 
+
 app.use((req, res) => {
   res.status(404).json({ ok: false, error: 'Not found' });
 });
 
 app.listen(PORT, () => {
-  console.log(`PipaArte email notifier corriendo en http://localhost:${PORT}`);
+  console.log(`🚀 PipaArte server corriendo en http://localhost:${PORT}`);
 });
 
